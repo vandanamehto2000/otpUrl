@@ -1,4 +1,4 @@
-const OTP = require("../model/otpModel");
+const OTP = require("../model/mailModel");
 const router = require("express").Router();
 
 // register
@@ -41,36 +41,19 @@ router.post("/sendOTP", async (req, res) => {
     }
 })
 
-// verify OTP
-// router.post("/verifyOTP", async (req, res) => {
-//     try {
-//         let user = await OTP.findOne({
-//             phoneNumber: req.body.phoneNumber,
-//         });
 
-//         if (req.body.otp === user.otp) {
-//             return res.status(200).json({ message: "OTP is verified successfully" })
-//         } else {
-//             return res.status(409).json({ message: "INVALID OTP" })
-//         }
-//     }
-//     catch (err) {
-//         res.status(404).json({ message: "phoneNumber is wrong", err });
-//     }
-// });
-
-router.get("/verifyOTP", async (req, res) => {
+router.get("/mail/", async (req, res) => {
     try {
 
-        console.log(req.query.phoneNumber, "ppppppppppppp");
+        console.log(req.query.email, "ppppppppppppp");
     
 
-        if (req.query.phoneNumber == undefined || req.query.otp == undefined) {
+        if (req.query.email == undefined || req.query.otp == undefined) {
             res.json({"message":"bad request"})
         }
         
         let user = await OTP.findOne({
-            phoneNumber: req.query.phoneNumber,
+            email: req.query.email,
         });
 
         if (req.query.otp === user.otp) {
@@ -80,7 +63,7 @@ router.get("/verifyOTP", async (req, res) => {
         }
     }
     catch (err) {
-        res.status(404).json({ message: "phoneNumber is wrong", err });
+        res.status(404).json({ message: "email is wrong", err });
     }
 });
 

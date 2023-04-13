@@ -7,17 +7,7 @@ app.use(express.json());
 const db = require("./config/dbConfig");
 db();
 
-app.use("/", require("./routes/otpRoutes"));
-
-app.get("/user", function(req, res){
-  
-    var name = req.query.name
-    var age = req.query.age
-      
-    console.log("Name :", name)
-    console.log("Age :", age)
-})
-
+app.use("/", require("./routes/mailRoute"));
 
 const PORT = 5000;
 
