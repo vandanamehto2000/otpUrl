@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const otpSchema = mongoose.Schema({
+const otpUrlSchema = mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -22,4 +22,4 @@ const otpSchema = mongoose.Schema({
     },
 })
 
-module.exports = mongoose.model("OTP", otpSchema);
+module.exports = mongoose.model("OTPURL", otpUrlSchema);

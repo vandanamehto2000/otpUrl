@@ -7,7 +7,7 @@ app.use(express.json());
 const db = require("./config/dbConfig");
 db();
 
-app.use("/", require("./routes/mailRoute"));
+app.use("/", require("./routes/otpUrlRoute"));
 
 const PORT = 5000;
 

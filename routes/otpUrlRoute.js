@@ -1,14 +1,14 @@
-const OTP = require("../model/mailModel");
+const OTPURL = require("../models/otpUrlModel");
 const router = require("express").Router();
 
 // register
 router.post("/register", async (req, res) => {
     try {
-        let user = await OTP.findOne({ phoneNumber: req.body.phoneNumber });
+        let user = await OTPURL.findOne({ phoneNumber: req.body.phoneNumber });
         if (user) {
             return res.status(409).json({ message: "you have already register" });
         }
-        user = new OTP({
+        user = new OTPURL({
             name: req.body.name,
             email: req.body.email,
             phoneNumber: req.body.phoneNumber
@@ -31,7 +31,7 @@ router.post("/sendOTP", async (req, res) => {
             ...req.body,
             otp
         }
-        let data = await OTP.findOneAndUpdate({ phoneNumber: req.body.phoneNumber }, { $set: { ...payload } }, { new: true })
+        let data = await OTPURL.findOneAndUpdate({ phoneNumber: req.body.phoneNumber }, { $set: { ...payload } }, { new: true })
         res.status(201).json({ "otp": data.otp });
 
     }
@@ -46,13 +46,13 @@ router.get("/mail/", async (req, res) => {
     try {
 
         console.log(req.query.email, "ppppppppppppp");
-    
+
 
         if (req.query.email == undefined || req.query.otp == undefined) {
-            res.json({"message":"bad request"})
+            res.json({ "message": "bad request" })
         }
-        
-        let user = await OTP.findOne({
+
+        let user = await OTPURL.findOne({
             email: req.query.email,
         });
 
